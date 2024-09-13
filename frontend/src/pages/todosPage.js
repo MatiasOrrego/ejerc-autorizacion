@@ -60,10 +60,15 @@ export const todosPage = () => {
   th4.classList.add("border", "px-4", "py-2");
   th4.textContent = "Owner Id";
 
+  const th5 = document.createElement("th");
+  th5.classList.add("border", "px-4", "py-2");
+  th5.textContent = "Acciones";
+
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
   tr.appendChild(th4);
+  tr.appendChild(th5);
 
   thead.appendChild(tr);
 
@@ -74,7 +79,9 @@ export const todosPage = () => {
   table.appendChild(tbody);
 
   container.appendChild(btnHome);
-  fetch("http://localhost:4000/todos")
+  fetch("http://localhost:4000/todos",{
+    credentials: "include",
+  })
     .then((response) => response.json())
     .then((data) => {
       data.todos.forEach((todo) => {
@@ -98,16 +105,49 @@ export const todosPage = () => {
         td4.classList.add("border", "px-4", "py-2");
         td4.textContent = todo.owner;
 
+        const td5 = document.createElement("td");
+        td5.classList.add("border", "px-4", "py-2");
+        td5.textContent = todo.actions;
+
+        const updateBtn = document.createElement("button");
+        updateBtn.classList.add("bg-green-500", "text-white", "p-2", "rounded", "hover:bg-green-600", "mr-2");
+        updateBtn.textContent = "Update";
+        updateBtn.addEventListener("click", () => {
+          openForm(todo);  
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("bg-red-500", "text-white", "p-2", "rounded", "hover:bg-red-600");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => {
+          tr.remove();
+        });
+
+        td5.appendChild(updateBtn);
+        td5.appendChild(deleteBtn);
+
+
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        tr.appendChild(td5);
         tbody.appendChild(tr);
       });
     });
 
+    const addTodoBtn = document.createElement("button");
+    addTodoBtn.classList.add("bg-blue-500", "text-white", "p-2", "rounded", "hover:bg-blue-600", "mt-4");
+    addTodoBtn.textContent = "Add New Todo";
+    addTodoBtn.addEventListener("click", () => {
+      openForm();
+    });
+  
+    container.appendChild(addTodoBtn);
   container.appendChild(title);
   container.appendChild(table);
 
   return container;
 };
+
+
