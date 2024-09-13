@@ -51,7 +51,7 @@ export const updateTodoCtrl = (req, res) => {
     return res.status(400).json({ message: "El título debe ser un texto" });
   } else if (completed !== undefined && typeof completed !== "boolean") {
     return res.status(400).json({ message: "El estado de la tarea debe ser un booleano" });
-  } 
+  }
 
   const todo = database.todos.find((todo) => todo.id === id);
 
