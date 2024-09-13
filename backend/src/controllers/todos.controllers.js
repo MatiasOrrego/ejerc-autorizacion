@@ -11,33 +11,40 @@ export const getAllTodosCtrl = (req, res) => {
 };
 
 export const createTodoCtrl = (req, res) => {
+  const userId = req.user.id;
   const { title, completed } = req.body;
 
   if (!title) {
     return res.status(400).json({ message: "El título es requerido" });
-  } else if ( title === "") {
-    return res.status(400).json({ message: "El título no puede ser vacío" });
   } else if (typeof title !== "string") {
-    return res.status(400).json({ message: "El título debe ser un texto" });
+    return res.status(400).json({ message: "El título debe ser un string" });
+  } else if (title.length < 3) {
+    return res
+      .status(400)
+      .json({ message: "El título debe tener al menos 3 caracteres" });
   }
-  
+
   if (completed === undefined) {
-    return res.status(400).json({ message: "El estado de la tarea es requerido" });
+    return res
+      .status(400)
+      .json({ message: "El estado de la tarea es requerido" });
   } else if (typeof completed !== "boolean") {
-    return res.status(400).json({ message: "El estado de la tarea debe ser un booleano" });
+    return res
+      .status(400)
+      .json({ message: "El estado de la tarea debe ser un booleano" });
   }
 
   const newTodo = {
     id: database.todos.length + 1,
     title,
     completed,
-    owner: req.user.id,
+    owner: userId,
   };
 
   database.todos.push(newTodo);
 
   res.json({ message: "Tarea creada exitosamente" });
-}
+};
 
 export const updateTodoCtrl = (req, res) => {
   const userId = req.user.id;
