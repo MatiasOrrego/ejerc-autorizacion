@@ -55,10 +55,12 @@ const fetchTodos = (tbody) => {
             })
             .then((data) => {
               console.log("Tarea eliminada:", data);
+              alert("Tarea eliminada exitosamente");
               fetchTodos(tbody); // Volver a obtener la lista de tareas
             })
             .catch((error) => {
               console.error("Error al eliminar tarea:", error);
+              alert("Error al eliminar tarea: " + error.message);
             });
         });
 
@@ -75,6 +77,7 @@ const fetchTodos = (tbody) => {
     })
     .catch((error) => {
       console.error("Error al obtener tareas:", error);
+      alert("Error al obtener tareas: " + error.message);
     });
 };
 
@@ -128,11 +131,13 @@ const showModal = (todo, tbody) => {
         })
         .then((data) => {
           console.log("Tarea actualizada:", data);
+          alert("Tarea actualizada exitosamente");
           modal.remove();
           fetchTodos(tbody); // Volver a obtener la lista de tareas
         })
         .catch((error) => {
           console.error("Error al actualizar tarea:", error);
+          alert("Error al actualizar tarea: " + error.message);
         });
     } else {
       const newTodo = {
@@ -156,11 +161,13 @@ const showModal = (todo, tbody) => {
         })
         .then((data) => {
           console.log("Tarea agregada:", data);
+          alert("Tarea creada exitosamente");
           modal.remove();
           fetchTodos(tbody); // Volver a obtener la lista de tareas
         })
         .catch((error) => {
           console.error("Error al agregar tarea:", error);
+          alert("Error al agregar tarea: " + error.message);
         });
     }
   });
@@ -234,6 +241,7 @@ export const todosPage = () => {
   container.appendChild(btnHome);
 
   fetchTodos(tbody);
+
 
   const addButton = document.createElement("button");
   addButton.classList.add("bg-green-600", "text-white", "px-4", "py-2", "rounded-lg", "mt-4", "hover:bg-green-700", "transition", "duration-300", "ease-in-out");
