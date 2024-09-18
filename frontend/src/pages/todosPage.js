@@ -33,14 +33,14 @@ const fetchTodos = (tbody) => {
         td5.classList.add("border", "px-4", "py-2");
 
         const updateBtn = document.createElement("button");
-        updateBtn.classList.add("bg-blue-500", "text-white", "p-2", "rounded", "hover:bg-blue-600", "mr-2");
+        updateBtn.classList.add("bg-blue-600", "text-white", "px-4", "py-2", "rounded-lg", "hover:bg-blue-700", "mr-2", "transition", "duration-300", "ease-in-out");
         updateBtn.textContent = "Actualizar";
         updateBtn.addEventListener("click", () => {
           showModal(todo, tbody);
         });
 
         const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("bg-red-500", "text-white", "p-2", "rounded", "hover:bg-red-600");
+        deleteBtn.classList.add("bg-red-600", "text-white", "px-4", "py-2", "rounded-lg", "hover:bg-red-700", "transition", "duration-300", "ease-in-out");
         deleteBtn.textContent = "Borrar";
         deleteBtn.addEventListener("click", () => {
           fetch(`http://localhost:4000/todos/${todo.id}`, {
@@ -83,15 +83,16 @@ const showModal = (todo, tbody) => {
   modal.classList.add("fixed", "top-0", "left-0", "w-full", "h-full", "bg-black", "bg-opacity-50", "flex", "justify-center", "items-center");
 
   const modalContent = document.createElement("div");
-  modalContent.classList.add("bg-white", "p-6", "rounded", "shadow-md");
+  modalContent.classList.add("bg-white", "p-6", "rounded-lg", "shadow-lg");
 
   const modalTitle = document.createElement("h2");
+  modalTitle.classList.add("text-2xl", "font-bold", "mb-4");
   modalTitle.textContent = todo.id ? `Editando Tarea ${todo.id}` : "Agregar Nueva Tarea";
   modalContent.appendChild(modalTitle);
 
   const inputTitle = document.createElement("input");
   inputTitle.value = todo.title;
-  inputTitle.classList.add("border", "p-2", "w-full", "mb-4");
+  inputTitle.classList.add("border", "p-2", "w-full", "mb-4", "rounded-lg");
   modalContent.appendChild(inputTitle);
 
   const completedCheckbox = document.createElement("input");
@@ -102,7 +103,7 @@ const showModal = (todo, tbody) => {
 
   const confirmButton = document.createElement("button");
   confirmButton.textContent = todo.id ? "Actualizar" : "Agregar";
-  confirmButton.classList.add("bg-green-500", "text-white", "p-2", "rounded", "mr-2");
+  confirmButton.classList.add("bg-green-600", "text-white", "px-4", "py-2", "rounded-lg", "mr-2", "hover:bg-green-700", "transition", "duration-300", "ease-in-out");
   confirmButton.addEventListener("click", () => {
     if (todo.id) {
       // Actualizar tarea existente
@@ -167,7 +168,7 @@ const showModal = (todo, tbody) => {
 
   const cancelButton = document.createElement("button");
   cancelButton.textContent = "Cancelar";
-  cancelButton.classList.add("bg-red-500", "text-white", "p-2", "rounded");
+  cancelButton.classList.add("bg-red-600", "text-white", "px-4", "py-2", "rounded-lg", "hover:bg-red-700", "transition", "duration-300", "ease-in-out");
   cancelButton.addEventListener("click", () => {
     modal.remove();
   });
@@ -179,42 +180,43 @@ const showModal = (todo, tbody) => {
 
 export const todosPage = () => {
   const container = document.createElement("div");
-  container.classList.add("flex", "flex-col", "items-center", "justify-center", "h-screen", "bg-gray-200");
+  container.classList.add("flex", "flex-col", "items-center", "justify-center", "min-h-screen", "bg-gray-100", "p-4");
 
   const btnHome = document.createElement("button");
-  btnHome.classList.add("bg-blue-500", "text-white", "p-2", "rounded", "hover:bg-blue-600", "mb-4");
+  btnHome.classList.add("bg-blue-600", "text-white", "px-4", "py-2", "rounded-lg", "hover:bg-blue-700", "mb-4", "transition", "duration-300", "ease-in-out");
   btnHome.textContent = "Home";
   btnHome.addEventListener("click", () => {
     window.location.pathname = "/home";
   });
 
   const title = document.createElement("h1");
-  title.classList.add("text-3xl", "font-bold", "mb-4");
+  title.classList.add("text-4xl", "font-bold", "mb-4");
   title.textContent = "List of Todos";
 
   const table = document.createElement("table");
-  table.classList.add("w-1/2", "bg-white", "shadow-md", "h-[700px]", "overflow-y-scroll");
+  table.classList.add("w-full", "bg-white", "shadow-lg", "rounded-lg", "overflow-hidden");
 
   const thead = document.createElement("thead");
+  thead.classList.add("bg-gray-200");
   const tr = document.createElement("tr");
   const th1 = document.createElement("th");
-  th1.classList.add("border", "px-4", "py-2");
+  th1.classList.add("border", "px-4", "py-2", "text-left");
   th1.textContent = "ID";
 
   const th2 = document.createElement("th");
-  th2.classList.add("border", "px-4", "py-2");
+  th2.classList.add("border", "px-4", "py-2", "text-left");
   th2.textContent = "Title";
 
   const th3 = document.createElement("th");
-  th3.classList.add("border", "px-4", "py-2");
+  th3.classList.add("border", "px-4", "py-2", "text-left");
   th3.textContent = "Completed";
 
   const th4 = document.createElement("th");
-  th4.classList.add("border", "px-4", "py-2");
+  th4.classList.add("border", "px-4", "py-2", "text-left");
   th4.textContent = "Owner Id";
 
   const th5 = document.createElement("th");
-  th5.classList.add("border", "px-4", "py-2");
+  th5.classList.add("border", "px-4", "py-2", "text-left");
   th5.textContent = "Acciones";
 
   tr.appendChild(th1);
@@ -234,7 +236,7 @@ export const todosPage = () => {
   fetchTodos(tbody);
 
   const addButton = document.createElement("button");
-  addButton.classList.add("bg-green-500", "text-white", "p-2", "rounded", "mt-4");
+  addButton.classList.add("bg-green-600", "text-white", "px-4", "py-2", "rounded-lg", "mt-4", "hover:bg-green-700", "transition", "duration-300", "ease-in-out");
   addButton.textContent = "Agregar Tarea";
   addButton.addEventListener("click", () => {
     showModal({ title: "", completed: false }, tbody);
